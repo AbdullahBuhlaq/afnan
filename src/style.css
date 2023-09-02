@@ -1,0 +1,650 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal';
+    font-weight: 500;
+}
+body{
+    height: 100vh;
+    background: #EAF8FF;
+    font-family: 'Tajawal';
+}
+.container-login{
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
+    background: linear-gradient(300deg, #46A8D7, #46A8D7 );
+    width: 70%;
+    min-width: 420px;
+    padding: 15px 40px;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 10px;
+}
+h1{
+    font-size: 23px;
+    line-height: 1.6em;
+    text-align: center;
+    color: #fff;
+}
+h3{
+  font-size: 16px;
+  line-height: 1.6em;
+  text-transform: uppercase;
+  color: #fff;
+
+}
+p{
+    position: relative;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    color: #818181;
+    font-size: 17px;
+    font-weight: 400;
+}
+form{
+    width: 100%;
+    position: relative;
+    margin: 10px auto 0 auto;
+}
+img{
+height: auto;
+  margin: 4px auto;
+  width: 100%;
+}
+
+.img-selection{
+  height: auto;
+  margin: 4px center;
+  width: 100%;
+  display: block;
+}
+
+button{
+  width: 100%;
+  margin-top: 0px;
+  padding: 8px 10px;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  float: center;
+  background-color: #fff;
+    box-shadow: 0px 5px 15px #00008024;
+    color:#044986;
+    font-weight:600;
+    letter-spacing:0.7px;
+    font-size:18px;
+
+}
+
+.row{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    grid-gap: 20px 30px;
+    margin-bottom: 20px;
+}
+label{
+    color: #1c093c;
+    font-size: 17px;
+}
+placeholder {
+  color: #ccc;
+  opacity: 1;
+  font-size:23px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 2px solid #C4DFFF;
+  border-radius: 6px;
+  float: center;
+  background-color: #C4DFFF;
+  box-shadow: 0px 5px 15px #00008024 !important;
+
+}
+
+
+input[type=date] {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 2px solid #C4DFFF;
+  border-radius: 6px;
+  float: center;
+  background-color: #C4DFFF;
+    box-shadow: 0px 5px 15px #00008024 !important;
+
+}
+
+
+input[type=tel] {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 2px solid #C4DFFF;
+  border-radius: 6px;
+  float: center;
+  background-color: #C4DFFF;
+    box-shadow: 0px 5px 15px #00008024 !important;
+
+}
+
+
+input[type=mail] {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 2px solid #C4DFFF;
+  border-radius: 6px;
+  float: center;
+  background-color: #C4DFFF;
+    box-shadow: 0px 5px 15px #00008024 !important;
+
+}
+
+
+input[type=password] {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 2px solid #C4DFFF;
+  border-radius: 6px;
+  float: center;
+  background-color: #C4DFFF;
+    box-shadow: 0px 5px 15px #00008024 !important;
+
+}
+/*
+button{
+    border: none;
+    width : 70%;
+    padding: 10px 15px;
+    background: linear-gradient(
+        130deg,
+        #2EC1E6,
+        #2E9BE6
+    );
+    color: #ffffff;
+    border-radius: 6px;
+    float: center;
+    box-shadow: 0px 0px 15px #00008024 !important;  
+    font-size:18px;
+}
+*/
+
+
+
+
+
+
+/* FANCY SELECT */
+
+.selectMultiple {
+  width: auto;
+  max-width: 100%;
+  min-width:100%;
+  position: relative;
+    font-family: 'Tajawal';
+    align-items: center;
+justify-content: center;
+text-align: center;
+  box-shadow: 0px 5px 15px #00008024 !important;
+
+}
+.selectMultiple select {
+  display: none;
+}
+.selectMultiple > div {
+  margin:0px 0 2px;
+  position: relative;
+  z-index: 12;
+  padding: 10px 4px 10px 4px;
+  border-radius: 8px;
+  background: #C4DFFF;
+  height: auto;
+  font-size: 10px;
+  min-height: 65px;
+  box-shadow: 0px 5px 15px #00008024 !important;
+  transition: box-shadow 0.3s ease;
+}
+.selectMultiple > div:hover {
+  box-shadow: 0 4px 24px -1px rgba(22, 42, 90, 0.16);
+}
+.selectMultiple > div .arrow {
+  right: 3px;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+  width: 28px;
+  position: absolute;
+}
+.selectMultiple > div .arrow:before, .selectMultiple > div .arrow:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 2px;
+  height: 8px;
+  border-bottom: 8px solid #99A3BA;
+  top: 43%;
+  transition: all 0.3s ease;
+}
+.selectMultiple > div .arrow:before {
+  right: 12px;
+  transform: rotate(-130deg);
+}
+.selectMultiple > div .arrow:after {
+  left: 9px;
+  transform: rotate(130deg);
+}
+.selectMultiple > div span {
+  color: #222;
+  display: block;
+  position: absolute;
+  left: 16px;
+  cursor: pointer;
+  top: 20px;
+  font-size:17px;
+  line-height: 28px;
+  transition: all 0.3s ease;
+}
+.selectMultiple > div span.hide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-4px, 0);
+}
+.selectMultiple > div a {
+  position: relative;
+  padding: 7px 20px 3px 8px;
+  line-height: 28px;
+  color: #2A8CFF;
+  display: inline-block;
+  vertical-align: top;
+  margin: 6px 6px 6px 0;
+  font-size:15px;
+  font-weight :550;
+}
+.selectMultiple > div a em {
+  font-style: normal;
+  display: block;
+  white-space: nowrap;
+}
+.selectMultiple > div a:before {
+  content: "";
+  left: 0;
+  top: 0;
+  bottom: 0px;
+  width: 100%;
+  position: absolute;
+  display: block;
+  background: #fff;
+  z-index: -1;
+  border-radius: 4px;
+  box-shadow: 0px 2px 15px #00008024 !important;
+}
+.selectMultiple > div a i {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 28px;
+  display: block;
+}
+.selectMultiple > div a i:before, .selectMultiple > div a i:after {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 10px;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  background: #555;
+  border-radius: 1px;
+}
+.selectMultiple > div a i:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.selectMultiple > div a i:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.selectMultiple > div a.notShown {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.selectMultiple > div a.notShown:before {
+  width: 28px;
+  transition: width 0.45s cubic-bezier(0.87, -0.41, 0.19, 1.44) 0.2s;
+}
+.selectMultiple > div a.notShown i {
+  opacity: 0;
+  transition: all 0.3s ease 0.3s;
+}
+.selectMultiple > div a.notShown em {
+  opacity: 0;
+  transform: translate(-6px, 0);
+  transition: all 0.4s ease 0.3s;
+}
+.selectMultiple > div a.notShown.shown {
+  opacity: 1;
+}
+.selectMultiple > div a.notShown.shown:before {
+  width: 100%;
+}
+.selectMultiple > div a.notShown.shown i {
+  opacity: 1;
+}
+.selectMultiple > div a.notShown.shown em {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.selectMultiple > div a.remove:before {
+  width: 28px;
+  transition: width 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44) 0s;
+}
+.selectMultiple > div a.remove i {
+  opacity: 0;
+  transition: all 0.3s ease 0s;
+}
+.selectMultiple > div a.remove em {
+  opacity: 0;
+  transform: translate(-12px, 0);
+  transition: all 0.4s ease 0s;
+}
+.selectMultiple > div a.remove.disappear {
+  opacity: 0;
+  transition: opacity 0.5s ease 0s;
+}
+.selectMultiple > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 17px;
+  z-index: 1;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 8px;
+  transform: translate(0, 20px) scale(0.8);
+  transform-origin: 0 0;
+  filter: drop-shadow(0 12px 20px rgba(22, 42, 90, 0.08));
+  transition: all 0.4s ease, transform 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44), filter 0.3s ease 0.2s;
+}
+.selectMultiple > ul li {
+  color: #2A8CFF;
+  background: #fff;
+  padding: 12px 16px;
+  cursor: pointer;
+  overflow: hidden;
+  font-size:18px;
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease 0.3s, opacity 0.5s ease 0.3s, border-radius 0.3s ease 0.3s;
+}
+.selectMultiple > ul li:first-child {
+  border-radius: 8px 8px 0 0;
+}
+.selectMultiple > ul li:first-child:last-child {
+  border-radius: 8px;
+}
+.selectMultiple > ul li:last-child {
+  border-radius: 0 0 8px 8px;
+}
+.selectMultiple > ul li:last-child:first-child {
+  border-radius: 8px;
+}
+.selectMultiple > ul li:hover {
+  background: #2A8CFF;
+  color: #fff;
+}
+.selectMultiple > ul li:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+.selectMultiple > ul li.beforeRemove {
+  border-radius: 0 0 8px 8px;
+}
+.selectMultiple > ul li.beforeRemove:first-child {
+  border-radius: 8px;
+}
+.selectMultiple > ul li.afterRemove {
+  border-radius: 8px 8px 0 0;
+}
+.selectMultiple > ul li.afterRemove:last-child {
+  border-radius: 8px;
+}
+.selectMultiple > ul li.remove {
+  transform: scale(0);
+  opacity: 0;
+}
+.selectMultiple > ul li.remove:after {
+  animation: ripple 0.4s ease-out;
+}
+.selectMultiple > ul li.notShown {
+  display: none;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.4s ease;
+}
+.selectMultiple > ul li.notShown.show {
+  transform: scale(1);
+  opacity: 1;
+}
+.selectMultiple.open > div {
+  box-shadow: 0 4px 20px -1px rgba(22, 42, 90, 0.12);
+}
+.selectMultiple.open > div .arrow:before {
+  transform: rotate(-50deg);
+}
+.selectMultiple.open > div .arrow:after {
+  transform: rotate(50deg);
+}
+.selectMultiple.open > ul {
+  transform: translate(0, 12px) scale(1);
+  opacity: 1;
+  visibility: visible;
+  filter: drop-shadow(0 16px 24px rgba(22, 42, 90, 0.16));
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(30, 30);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(50, 50);
+  }
+}
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+
+body .selectMultiple {
+ margin-top:5px;
+}
+body .dribbble {
+  position: fixed;
+  display: block;
+  right: 20px;
+  bottom: 20px;
+  opacity: 0.5;
+  transition: all 0.4s ease;
+}
+body .dribbble:hover {
+  opacity: 1;
+}
+body .dribbble img {
+  display: block;
+  height: 36px;
+}
+
+
+
+
+
+/*  send  button effect  */
+
+.button {
+  --primary: #275EFE;
+  --primary-dark: #2055EE;
+  --primary-darkest: #133FC0;
+  --text: #FFFFFF;
+  --text-opacity: 1;
+  --success: #C4DFFF;
+  --success-scale: 0.2;
+  --success-opacity: 0;
+  --border-radius: 7;
+  --overflow: hidden;
+  --rotate: 0;
+  --plane-x: 0;
+  --plane-y: 0;
+  --plane-opacity: 1;
+  --left-wing-background: var(--primary);
+  --left-wing-first-x: 0;
+  --left-wing-first-y: 0;
+  --left-wing-second-x: 50;
+  --left-wing-second-y: 0;
+  --left-wing-third-x: 0;
+  --left-wing-third-y: 100;
+  --left-body-background: var(--primary);
+  --left-body-first-x: 50;
+  --left-body-first-y: 0;
+  --left-body-second-x: 50;
+  --left-body-second-y: 100;
+  --left-body-third-x: 0;
+  --left-body-third-y: 100;
+  --right-wing-background: var(--primary);
+  --right-wing-first-x: 50;
+  --right-wing-first-y: 0;
+  --right-wing-second-x: 100;
+  --right-wing-second-y: 0;
+  --right-wing-third-x: 100;
+  --right-wing-third-y: 100;
+  --right-body-background: var(--primary);
+  --right-body-first-x: 50;
+  --right-body-first-y: 0;
+  --right-body-second-x: 50;
+  --right-body-second-y: 100;
+  --right-body-third-x: 100;
+  --right-body-third-y: 100;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border: 0;
+  padding: 10px 10px;
+  min-width: 100px;
+  width: 25%;
+  text-align: center;
+  margin: 0;
+  line-height: 24px;
+  font-weight: 500;
+  font-size: 18px;
+  background: none;
+  outline: none;
+  color: var(--text);
+  transform: rotate(calc(var(--rotate) * 1deg)) translateZ(0);
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.button .left, .button .right {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: var(--plane-opacity);
+  transform: translate(calc(var(--plane-x) * 1px), calc(var(--plane-y) * 1px)) translateZ(0);
+}
+.button .left:before, .button .right:before, .button .left:after, .button .right:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: calc(var(--border-radius) * 1px);
+  transform: translate(var(--x, 0.4%), var(--y, 0)) translateZ(0);
+  z-index: var(--z-index, 2);
+  background: var(--background, var(--left-wing-background));
+  clip-path: polygon(calc(var(--first-x, var(--left-wing-first-x)) * 1%) calc(var(--first-y, var(--left-wing-first-y)) * 1%), calc(var(--second-x, var(--left-wing-second-x)) * 1%) calc(var(--second-y, var(--left-wing-second-y)) * 1%), calc(var(--third-x, var(--left-wing-third-x)) * 1%) calc(var(--third-y, var(--left-wing-third-y)) * 1%));
+}
+.button .left:after {
+  --x: 0;
+  --z-index: 1;
+  --background: var(--left-body-background);
+  --first-x: var(--left-body-first-x);
+  --first-y: var(--left-body-first-y);
+  --second-x: var(--left-body-second-x);
+  --second-y: var(--left-body-second-y);
+  --third-x: var(--left-body-third-x);
+  --third-y: var(--left-body-third-y);
+}
+.button .right:before {
+  --x: -0.4%;
+  --z-index: 2;
+  --background: var(--right-wing-background);
+  --first-x: var(--right-wing-first-x);
+  --first-y: var(--right-wing-first-y);
+  --second-x: var(--right-wing-second-x);
+  --second-y: var(--right-wing-second-y);
+  --third-x: var(--right-wing-third-x);
+  --third-y: var(--right-wing-third-y);
+}
+.button .right:after {
+  --x: 0;
+  --z-index: 1;
+  --background: var(--right-body-background);
+  --first-x: var(--right-body-first-x);
+  --first-y: var(--right-body-first-y);
+  --second-x: var(--right-body-second-x);
+  --second-y: var(--right-body-second-y);
+  --third-x: var(--right-body-third-x);
+  --third-y: var(--right-body-third-y);
+}
+.button span {
+  display: block;
+  position: relative;
+  z-index: 4;
+  opacity: var(--text-opacity);
+}
+.button span.success {
+  z-index: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  font-size: 20px;
+  transform: rotate(calc(var(--rotate) * -1deg)) scale(var(--success-scale)) translateZ(0);
+  opacity: var(--success-opacity);
+  color: var(--success);
+}
