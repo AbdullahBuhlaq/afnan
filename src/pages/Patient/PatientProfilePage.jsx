@@ -28,10 +28,28 @@ function PatientProfile(props) {
   }, []);
   async function getProfile() {
     try {
-      const response = await fetch("http://localhost:3001/patient/profile", { ...requestOptions, headers: { ...requestOptions.headers, authorization: props.userInformation.token }, method: "GET" });
+      const response = await fetch(
+        `${import.meta.env.VITE_URL}/patient/profile`,
+        {
+          ...requestOptions,
+          headers: {
+            ...requestOptions.headers,
+            authorization: props.userInformation.token,
+          },
+          method: "GET",
+        }
+      );
       const data = await response.json();
       if (data.success) {
-        props.setProfile({ ...data.data, infoPatient: { ...data.data.infoPatient, gender: data.data.infoPatient["user.gender"], name: data.data.infoPatient["user.name"], username: data.data.infoPatient["user.username"] } });
+        props.setProfile({
+          ...data.data,
+          infoPatient: {
+            ...data.data.infoPatient,
+            gender: data.data.infoPatient["user.gender"],
+            name: data.data.infoPatient["user.name"],
+            username: data.data.infoPatient["user.username"],
+          },
+        });
       } else {
         console.log(data.error);
         props.toast.error("Sorry, Error Happened in The Server", {
@@ -67,10 +85,21 @@ function PatientProfile(props) {
         try {
           const newArr = await Promise.all(
             props.profile.diagnosis.map(async (diag, diagIndex) => {
-              const isTrue = await compare(searchOptions["diagnosis"][search.field], search.operator, diag[search.field], search.word);
+              const isTrue = await compare(
+                searchOptions["diagnosis"][search.field],
+                search.operator,
+                diag[search.field],
+                search.word
+              );
               if (isTrue) {
                 index += 1;
-                return <TableRow key={diagIndex} diagnosis={diag} setShowPic={setShowPic} />;
+                return (
+                  <TableRow
+                    key={diagIndex}
+                    diagnosis={diag}
+                    setShowPic={setShowPic}
+                  />
+                );
               }
             })
           );
@@ -99,21 +128,57 @@ function PatientProfile(props) {
                     <img src="images/profile.webp" />
                     <h1>{props.profile.infoPatient.name}</h1>
 
-                    <ProfileField name={"User Name"} value={props.profile.infoPatient.username} />
-                    <ProfileField name={"Access Key"} value={props.profile.infoPatient.accessKey} />
-                    <ProfileField name={"Current Disease"} value={props.profile.infoPatient.disease_now} />
-                    <ProfileField name={"Birthday"} value={new Date(props.profile.infoPatient.birthday).toLocaleString("default", { month: "long", day: "numeric", year: "numeric" })} />
-                    <ProfileField name={"Blood Type"} value={props.profile.infoPatient.bloodType} />
-                    <ProfileField name={"Height"} value={props.profile.infoPatient.height + "m"} />
-                    <ProfileField name={"Weight"} value={props.profile.infoPatient.weight + "K.g"} />
-                    <ProfileField name={"Gender"} value={props.profile.infoPatient.gender} />
+                    <ProfileField
+                      name={"User Name"}
+                      value={props.profile.infoPatient.username}
+                    />
+                    <ProfileField
+                      name={"Access Key"}
+                      value={props.profile.infoPatient.accessKey}
+                    />
+                    <ProfileField
+                      name={"Current Disease"}
+                      value={props.profile.infoPatient.disease_now}
+                    />
+                    <ProfileField
+                      name={"Birthday"}
+                      value={new Date(
+                        props.profile.infoPatient.birthday
+                      ).toLocaleString("default", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    />
+                    <ProfileField
+                      name={"Blood Type"}
+                      value={props.profile.infoPatient.bloodType}
+                    />
+                    <ProfileField
+                      name={"Height"}
+                      value={props.profile.infoPatient.height + "m"}
+                    />
+                    <ProfileField
+                      name={"Weight"}
+                      value={props.profile.infoPatient.weight + "K.g"}
+                    />
+                    <ProfileField
+                      name={"Gender"}
+                      value={props.profile.infoPatient.gender}
+                    />
 
                     <div className="app-content-actions">
                       <div className="app-content-actions-wrapper">
-                        <button className="action-button profile-button" onClick={() => setEdit(true)}>
+                        <button
+                          className="action-button profile-button"
+                          onClick={() => setEdit(true)}
+                        >
                           Edit Profile
                         </button>
-                        <button className="action-button profile-button" onClick={() => setChangePasswordPopup(true)}>
+                        <button
+                          className="action-button profile-button"
+                          onClick={() => setChangePasswordPopup(true)}
+                        >
                           Change Password
                         </button>
                       </div>
@@ -121,14 +186,24 @@ function PatientProfile(props) {
                   </div>
 
                   <div className="analysis">
-                    {props.profile.diagnosis.length ? <Cards patientInfo={props.profile} /> : null}
+                    {props.profile.diagnosis.length ? (
+                      <Cards patientInfo={props.profile} />
+                    ) : null}
                     <div className="app-content">
                       <div className="app-content-header">
-                        {props.profile.diagnosis.length == 0 ? "No Diagnosis" : null}
-                        <h1 className="app-content-headerText">YOUR MEDICAL RECORD</h1>
+                        {props.profile.diagnosis.length == 0
+                          ? "No Diagnosis"
+                          : null}
+                        <h1 className="app-content-headerText">
+                          YOUR MEDICAL RECORD
+                        </h1>
                       </div>
 
-                      <Search page={"diagnosis"} search={search} setSearch={setSearch} />
+                      <Search
+                        page={"diagnosis"}
+                        search={search}
+                        setSearch={setSearch}
+                      />
 
                       <div className="products-area-wrapper tableView">
                         <TableHeader tabs={diagnosisTabs} />
@@ -143,7 +218,11 @@ function PatientProfile(props) {
               </div>
             </section>
 
-            <div className={"popup-box" + (edit || changePasswordPopup ? " show" : "")}>
+            <div
+              className={
+                "popup-box" + (edit || changePasswordPopup ? " show" : "")
+              }
+            >
               <div className="form-container">
                 <span className="close">
                   <HiOutlineXMark
@@ -154,9 +233,29 @@ function PatientProfile(props) {
                   />
                 </span>
 
-                <h1>{edit ? "Edit Profile" : changePasswordPopup ? "Change Password" : ""}</h1>
-                {edit ? <EditPatientProfile profile={props.profile} setProfile={props.setProfile} setEdit={setEdit} userInformation={props.userInformation} toast={props.toast} /> : null}
-                {changePasswordPopup ? <ChangePassword setChangePasswordPopup={setChangePasswordPopup} userInformation={props.userInformation} toast={props.toast} /> : null}
+                <h1>
+                  {edit
+                    ? "Edit Profile"
+                    : changePasswordPopup
+                    ? "Change Password"
+                    : ""}
+                </h1>
+                {edit ? (
+                  <EditPatientProfile
+                    profile={props.profile}
+                    setProfile={props.setProfile}
+                    setEdit={setEdit}
+                    userInformation={props.userInformation}
+                    toast={props.toast}
+                  />
+                ) : null}
+                {changePasswordPopup ? (
+                  <ChangePassword
+                    setChangePasswordPopup={setChangePasswordPopup}
+                    userInformation={props.userInformation}
+                    toast={props.toast}
+                  />
+                ) : null}
               </div>
             </div>
 
@@ -176,7 +275,12 @@ function PatientProfile(props) {
                     <Zoom scale={0.4}>
                       {showPic.map((slideImage, index) => (
                         <div key={index}>
-                          <div style={{ ...divStyle, backgroundImage: `url(${slideImage.path})` }}></div>
+                          <div
+                            style={{
+                              ...divStyle,
+                              backgroundImage: `url(${slideImage.path})`,
+                            }}
+                          ></div>
                         </div>
                       ))}
                     </Zoom>

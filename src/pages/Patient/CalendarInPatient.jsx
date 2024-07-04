@@ -8,14 +8,24 @@ import _ from "lodash";
 import requestOptions from "../../constants/requestOptions";
 
 const CalendarInPatient = (props) => {
-  const [currentEvents, setCurrentEvents] = useState(props.schedule.data ? props.schedule.data : []);
+  const [currentEvents, setCurrentEvents] = useState(
+    props.schedule.data ? props.schedule.data : []
+  );
   const [editSchedule, setEditSchedule] = useState(false);
 
   const handleEvents = async (events) => {
     let newEvents = [];
     await Promise.all(
       events.map((event) => {
-        newEvents = [...newEvents, { id: event.id, start: event.startStr, end: event.endStr, title: event.title }];
+        newEvents = [
+          ...newEvents,
+          {
+            id: event.id,
+            start: event.startStr,
+            end: event.endStr,
+            title: event.title,
+          },
+        ];
       })
     );
     await Promise.resolve(setCurrentEvents([...newEvents]));
@@ -27,7 +37,9 @@ const CalendarInPatient = (props) => {
     let calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect();
-    const id = currentEvents.length ? parseInt(currentEvents[currentEvents.length - 1].id) + 1 : 1;
+    const id = currentEvents.length
+      ? parseInt(currentEvents[currentEvents.length - 1].id) + 1
+      : 1;
     if (title) {
       calendarApi.addEvent({
         id: id,
@@ -50,17 +62,34 @@ const CalendarInPatient = (props) => {
   const handleEventContent = (info) => {
     return (
       <>
-        <div className={"project-detail develop" + (info.view.type == "timeGridDay" ? " im-day" : "")}>{info.timeText}</div>
+        <div
+          className={
+            "project-detail develop" +
+            (info.view.type == "timeGridDay" ? " im-day" : "")
+          }
+        >
+          {info.timeText}
+        </div>
       </>
     );
   };
 
   const [duringAdd, setDuringAdd] = useState(false);
   const handleSendToBack = async () => {
-    const newData = { username: props.profile.username, gender: props.profile.gender, name: props.profile.name, address: props.profile.address, medicalSpecialty: props.profile.medicalSpecialty, schedule: { data: [...currentEvents] } };
+    const newData = {
+      username: props.profile.username,
+      gender: props.profile.gender,
+      name: props.profile.name,
+      address: props.profile.address,
+      medicalSpecialty: props.profile.medicalSpecialty,
+      schedule: { data: [...currentEvents] },
+    };
     const infoRequestOptions = {
       ...requestOptions,
-      headers: { ...requestOptions.headers, authorization: props.userInformation.token },
+      headers: {
+        ...requestOptions.headers,
+        authorization: props.userInformation.token,
+      },
       method: "PUT",
       body: JSON.stringify({
         ...newData,
@@ -69,12 +98,18 @@ const CalendarInPatient = (props) => {
     };
 
     setDuringAdd(true);
-    const response = await fetch("http://localhost:3001/doctor/update", infoRequestOptions);
+    const response = await fetch(
+      `${import.meta.env.VITE_URL}/doctor/update`,
+      infoRequestOptions
+    );
 
     const data = await response.json();
 
     if (data.success) {
-      props.setProfile({ ...props.profile, schedule: { data: [...currentEvents] } });
+      props.setProfile({
+        ...props.profile,
+        schedule: { data: [...currentEvents] },
+      });
       setEditSchedule(false);
 
       props.toast.success("Schedule Edited", {

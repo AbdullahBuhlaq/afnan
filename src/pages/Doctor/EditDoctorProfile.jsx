@@ -37,17 +37,35 @@ function EditDoctorProfile(props) {
 
   const [doctorErrors, setDoctorErrors] = useState({});
   const doctorSchema = {
-    name: Joi.string().required().min(2).max(50).trim().messages(messages).label("Name"),
+    name: Joi.string()
+      .required()
+      .min(2)
+      .max(50)
+      .trim()
+      .messages(messages)
+      .label("Name"),
     gender: Joi.string().required().messages(messages).label("Gender"),
-    medicalSpecialty: Joi.string().required().messages(messages).label("Medical Specialty"),
-    address: Joi.string().required().min(2).trim().messages(messages).label("Adress"),
+    medicalSpecialty: Joi.string()
+      .required()
+      .messages(messages)
+      .label("Medical Specialty"),
+    address: Joi.string()
+      .required()
+      .min(2)
+      .trim()
+      .messages(messages)
+      .label("Adress"),
     username: Joi.string()
       .trim()
       .pattern(/[a-zA-Z]+[a-zA-Z0-9\_\.]*$/)
       .min(3)
       .max(30)
       .required()
-      .messages({ ...messages, "string.pattern.base": "{{#label}} must contain just numbers and letters" })
+      .messages({
+        ...messages,
+        "string.pattern.base":
+          "{{#label}} must contain just numbers and letters",
+      })
       .label("User Name"),
     schedule: Joi.any().required(),
   };
@@ -57,7 +75,7 @@ function EditDoctorProfile(props) {
 
   async function editProfile() {
     const newData = doctor;
-    const url = "http://localhost:3001/doctor/update";
+    const url = `${import.meta.env.VITE_URL}/doctor/update`;
 
     setDuringAdd(true);
     let formData = new FormData();
@@ -95,11 +113,66 @@ function EditDoctorProfile(props) {
       <>
         <form>
           <div className="row">
-            <Input placeholder={""} label={"Name"} type={"text"} name={"name"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Input placeholder={""} label={"User Name"} type={"text"} name={"username"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Input placeholder={""} label={"Adress"} type={"text"} name={"address"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Select label={"Gedner"} placeholder={"Choose gender..."} list={selectOptions.gender} name={"gender"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Select label={"Medical Specialty"} placeholder={"Choose medical specialty..."} list={selectOptions.medicalSpecialties} name={"medicalSpecialty"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
+            <Input
+              placeholder={""}
+              label={"Name"}
+              type={"text"}
+              name={"name"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"User Name"}
+              type={"text"}
+              name={"username"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Adress"}
+              type={"text"}
+              name={"address"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Select
+              label={"Gedner"}
+              placeholder={"Choose gender..."}
+              list={selectOptions.gender}
+              name={"gender"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Select
+              label={"Medical Specialty"}
+              placeholder={"Choose medical specialty..."}
+              list={selectOptions.medicalSpecialties}
+              name={"medicalSpecialty"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
             <div className="column" style={{ position: "relative" }}>
               <h3>Profile Picture</h3>
               <input
@@ -113,7 +186,15 @@ function EditDoctorProfile(props) {
             </div>
           </div>
         </form>
-        <Button action={editProfile} text={"Save"} disabled={duringAdd} joiObject={joiDoctor} state={doctor} setStateErrors={setDoctorErrors} toast={props.toast} />
+        <Button
+          action={editProfile}
+          text={"Save"}
+          disabled={duringAdd}
+          joiObject={joiDoctor}
+          state={doctor}
+          setStateErrors={setDoctorErrors}
+          toast={props.toast}
+        />
       </>
     );
   } catch (err) {

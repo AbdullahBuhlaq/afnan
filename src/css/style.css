@@ -12,6 +12,10 @@
    border-radius: 50px;
  }
 
+ .dash {
+   background-color: red !important;
+ }
+
  ::-webkit-scrollbar-thumb {
    background: #3582da;
    border-radius: 50px;

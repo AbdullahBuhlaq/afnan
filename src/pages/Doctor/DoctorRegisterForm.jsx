@@ -26,19 +26,42 @@ function DoctorRegisterForm(props) {
 
   const [doctorErrors, setDoctorErrors] = useState({});
   const doctorSchema = {
-    name: Joi.string().required().min(2).max(50).trim().messages(messages).label("Name"),
+    name: Joi.string()
+      .required()
+      .min(2)
+      .max(50)
+      .trim()
+      .messages(messages)
+      .label("Name"),
     gender: Joi.string().required().messages(messages).label("Gender"),
-    medicalSpecialty: Joi.string().required().messages(messages).label("Medical Specialty"),
-    address: Joi.string().required().min(2).trim().messages(messages).label("Address"),
+    medicalSpecialty: Joi.string()
+      .required()
+      .messages(messages)
+      .label("Medical Specialty"),
+    address: Joi.string()
+      .required()
+      .min(2)
+      .trim()
+      .messages(messages)
+      .label("Address"),
     username: Joi.string()
       .trim()
       .pattern(/[a-zA-Z]+[a-zA-Z0-9\_\.]*$/)
       .min(3)
       .max(30)
       .required()
-      .messages({ ...messages, "string.pattern.base": "{{#label}} must contain just numbers and letters" })
+      .messages({
+        ...messages,
+        "string.pattern.base":
+          "{{#label}} must contain just numbers and letters",
+      })
       .label("User Name"),
-    password: Joi.string().required().min(8).max(50).messages(messages).label("Password"),
+    password: Joi.string()
+      .required()
+      .min(8)
+      .max(50)
+      .messages(messages)
+      .label("Password"),
   };
   const joiDoctor = Joi.object(doctorSchema);
 
@@ -51,11 +74,21 @@ function DoctorRegisterForm(props) {
       }),
     };
     setDuringAdd(true);
-    const response = await fetch("http://localhost:3001/auth/signup-doctor", infoRequestOptions);
+    const response = await fetch(
+      `${import.meta.env.VITE_URL}/auth/signup-doctor`,
+      infoRequestOptions
+    );
     const data = await response.json();
     // const data = { id: 4, success: true, data: { token: "sldkfjslkfj", id: 1 } };
     if (data.success) {
-      localStorage.setItem("user", JSON.stringify({ token: data.data.token, id: data.data.id, userType: "doctor" }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          token: data.data.token,
+          id: data.data.id,
+          userType: "doctor",
+        })
+      );
       props.toast.success("Welcome!", {
         position: props.toast.POSITION.TOP_CENTER,
       });
@@ -84,16 +117,94 @@ function DoctorRegisterForm(props) {
 
         <form>
           <div className="row">
-            <Input placeholder={""} label={"Name"} type={"text"} name={"name"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Input placeholder={""} label={"User Name"} type={"text"} name={"username"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Input placeholder={""} label={"Password"} type={"password"} name={"password"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <CheckPasswordInput password={doctor.password} errors={doctorErrors} setErrors={setDoctorErrors} />
-            <Input placeholder={""} label={"Address"} type={"text"} name={"address"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Select label={"Gender"} placeholder={"Choose gender..."} list={selectOptions.gender} name={"gender"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
-            <Select label={"Medical Specialty"} placeholder={"Choose medical specialty..."} list={selectOptions.medicalSpecialties} name={"medicalSpecialty"} onChange={handleSave} state={doctor} setState={setDoctor} errors={doctorErrors} setErrors={setDoctorErrors} schema={doctorSchema} />
+            <Input
+              placeholder={""}
+              label={"Name"}
+              type={"text"}
+              name={"name"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"User Name"}
+              type={"text"}
+              name={"username"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Password"}
+              type={"password"}
+              name={"password"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <CheckPasswordInput
+              password={doctor.password}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+            />
+            <Input
+              placeholder={""}
+              label={"Address"}
+              type={"text"}
+              name={"address"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Select
+              label={"Gender"}
+              placeholder={"Choose gender..."}
+              list={selectOptions.gender}
+              name={"gender"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
+            <Select
+              label={"Medical Specialty"}
+              placeholder={"Choose medical specialty..."}
+              list={selectOptions.medicalSpecialties}
+              name={"medicalSpecialty"}
+              onChange={handleSave}
+              state={doctor}
+              setState={setDoctor}
+              errors={doctorErrors}
+              setErrors={setDoctorErrors}
+              schema={doctorSchema}
+            />
           </div>
         </form>
-        <Button action={register} text={"Sign Up"} disabled={duringAdd} joiObject={joiDoctor} state={doctor} setStateErrors={setDoctorErrors} toast={props.toast} />
+        <Button
+          action={register}
+          text={"Sign Up"}
+          disabled={duringAdd}
+          joiObject={joiDoctor}
+          state={doctor}
+          setStateErrors={setDoctorErrors}
+          toast={props.toast}
+        />
       </div>
     </>
   );

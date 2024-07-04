@@ -5,7 +5,14 @@ import Tab from "./Tab";
 function Navbar(props) {
   async function logout() {
     try {
-      let response = await fetch("http://localhost:3001/auth/logout", { ...requestOptions, method: "put", headers: { ...requestOptions.headers, authorization: props.userInformation.token } });
+      let response = await fetch(`${import.meta.env.VITE_URL}/auth/logout`, {
+        ...requestOptions,
+        method: "put",
+        headers: {
+          ...requestOptions.headers,
+          authorization: props.userInformation.token,
+        },
+      });
       let data = await response.json();
       // let data = { success: true };
       if (data.success) {
@@ -46,12 +53,29 @@ function Navbar(props) {
                   {" "}
                   <i className="fa fa-bars"> </i>{" "}
                 </div>
-                <ul className="ownmenu" style={{ display: show ? "block" : "none" }}>
+                <ul
+                  className="ownmenu"
+                  style={{ display: show ? "block" : "none" }}
+                >
                   {generalTabs.map((tab, tabIndex) => {
-                    return <Tab key={tabIndex} tab={tab} currentTab={props.currentTab} setCurrentTab={props.setCurrentTab} />;
+                    return (
+                      <Tab
+                        key={tabIndex}
+                        tab={tab}
+                        currentTab={props.currentTab}
+                        setCurrentTab={props.setCurrentTab}
+                      />
+                    );
                   })}
                   {props.tabs.map((tab, tabIndex) => {
-                    return <Tab key={tabIndex} tab={tab} currentTab={props.currentTab} setCurrentTab={props.setCurrentTab} />;
+                    return (
+                      <Tab
+                        key={tabIndex}
+                        tab={tab}
+                        currentTab={props.currentTab}
+                        setCurrentTab={props.setCurrentTab}
+                      />
+                    );
                   })}
                   {props.tabs.length ? (
                     <li onClick={() => logout()}>

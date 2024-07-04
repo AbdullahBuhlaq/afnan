@@ -24,9 +24,18 @@ function Login(props) {
       .min(3)
       .max(30)
       .required()
-      .messages({ ...messages, "string.pattern.base": "{{#label}} must contain just numbers and letters" })
+      .messages({
+        ...messages,
+        "string.pattern.base":
+          "{{#label}} must contain just numbers and letters",
+      })
       .label("User Name"),
-    password: Joi.string().required().min(8).max(50).messages(messages).label("Password"),
+    password: Joi.string()
+      .required()
+      .min(8)
+      .max(50)
+      .messages(messages)
+      .label("Password"),
   };
   const joiUser = Joi.object(userSchema);
 
@@ -40,7 +49,10 @@ function Login(props) {
         }),
       };
       setDuringAdd(true);
-      const response = await fetch("http://localhost:3001/auth/login", infoRequestOptions);
+      const response = await fetch(
+        `${import.meta.env.VITE_URL}/auth/login`,
+        infoRequestOptions
+      );
       const data = await response.json();
       // const data = {success: true, data: { token: "sldkfjslkfj", id: 1, userType: "patient" } };
       if (data.success) {
@@ -69,14 +81,44 @@ function Login(props) {
 
           <form>
             <div className="row">
-              <Input placeholder={""} label={"User Name"} type={"text"} name={"username"} onChange={handleSave} state={user} setState={setUser} errors={userErrors} setErrors={setUserErrors} schema={userSchema} />
-              <Input placeholder={""} label={"Password"} type={"password"} name={"password"} onChange={handleSave} state={user} setState={setUser} errors={userErrors} setErrors={setUserErrors} schema={userSchema} />
+              <Input
+                placeholder={""}
+                label={"User Name"}
+                type={"text"}
+                name={"username"}
+                onChange={handleSave}
+                state={user}
+                setState={setUser}
+                errors={userErrors}
+                setErrors={setUserErrors}
+                schema={userSchema}
+              />
+              <Input
+                placeholder={""}
+                label={"Password"}
+                type={"password"}
+                name={"password"}
+                onChange={handleSave}
+                state={user}
+                setState={setUser}
+                errors={userErrors}
+                setErrors={setUserErrors}
+                schema={userSchema}
+              />
             </div>
           </form>
           <div className="new-account" onClick={() => navigate("/register")}>
             You Don't Have an Account? Create one Here
           </div>
-          <Button action={login} text={"Login"} disabled={duringAdd} joiObject={joiUser} state={user} setStateErrors={setUserErrors} toast={props.toast} />
+          <Button
+            action={login}
+            text={"Login"}
+            disabled={duringAdd}
+            joiObject={joiUser}
+            state={user}
+            setStateErrors={setUserErrors}
+            toast={props.toast}
+          />
         </div>
       </>
     );

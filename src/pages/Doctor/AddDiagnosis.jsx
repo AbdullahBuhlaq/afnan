@@ -29,15 +29,50 @@ function AddDiagnosisForm(props) {
       .trim()
       .pattern(/^[0-9]{2}\/[0-9]{2}$/)
       .allow(null, "")
-      .messages({ ...messages, "string.pattern.base": "{{#label}} must be like : 02/02" })
+      .messages({
+        ...messages,
+        "string.pattern.base": "{{#label}} must be like : 02/02",
+      })
       .label("Blood Pressure"),
-    sugar: Joi.number().integer().min(60).max(350).empty(Joi.allow(null)).messages(messages).label("Sugar"),
+    sugar: Joi.number()
+      .integer()
+      .min(60)
+      .max(350)
+      .empty(Joi.allow(null))
+      .messages(messages)
+      .label("Sugar"),
 
-    heart_beat: Joi.number().integer().min(0).max(150).empty(Joi.allow(null)).messages(messages).label("Heart Rate"),
-    cholesterol: Joi.number().integer().min(100).max(400).empty(Joi.allow(null)).messages(messages).label("Cholesterol"),
-    diseaseTypeId: Joi.number().integer().required().min(1).messages(messages).label("Disease"),
-    medicineId: Joi.number().integer().required().min(1).messages(messages).label("Medicine"),
-    description: Joi.string().required().trim().messages(messages).label("Description"),
+    heart_beat: Joi.number()
+      .integer()
+      .min(0)
+      .max(150)
+      .empty(Joi.allow(null))
+      .messages(messages)
+      .label("Heart Rate"),
+    cholesterol: Joi.number()
+      .integer()
+      .min(100)
+      .max(400)
+      .empty(Joi.allow(null))
+      .messages(messages)
+      .label("Cholesterol"),
+    diseaseTypeId: Joi.number()
+      .integer()
+      .required()
+      .min(1)
+      .messages(messages)
+      .label("Disease"),
+    medicineId: Joi.number()
+      .integer()
+      .required()
+      .min(1)
+      .messages(messages)
+      .label("Medicine"),
+    description: Joi.string()
+      .required()
+      .trim()
+      .messages(messages)
+      .label("Description"),
     note: Joi.string().required().trim().messages(messages).label("Note"),
   };
   const joiDiagnosis = Joi.object(diagnosisSchema);
@@ -46,7 +81,10 @@ function AddDiagnosisForm(props) {
     try {
       const infoRequestOptions = {
         ...requestOptions,
-        headers: { ...requestOptions.headers, authorization: props.userInformation.token },
+        headers: {
+          ...requestOptions.headers,
+          authorization: props.userInformation.token,
+        },
         body: JSON.stringify({
           ...diagnosis,
           userId: props.patientInfo.infoPatient["user.id"],
@@ -55,7 +93,7 @@ function AddDiagnosisForm(props) {
       setDuringAdd(true);
 
       const newData = diagnosis;
-      const url = "http://localhost:3001/doctor/add-diagnosis";
+      const url = `${import.meta.env.VITE_URL}/doctor/add-diagnosis`;
 
       setDuringAdd(true);
       let formData = new FormData();
@@ -116,14 +154,104 @@ function AddDiagnosisForm(props) {
       <>
         <form>
           <div className="row">
-            <Input placeholder={""} label={"Blood Pressure"} type={"text"} name={"blood_pressure"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Input placeholder={""} label={"Sugar Level"} type={"number"} name={"sugar"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Input placeholder={""} label={"Heart Rate"} type={"number"} name={"heart_beat"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Input placeholder={""} label={"Cholesterol"} type={"number"} name={"cholesterol"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Select label={"Disease"} addNew={props.setAddNewDisease} placeholder={"Choose the disease..."} list={props.diseases} name={"diseaseTypeId"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Select label={"Medicine"} addNew={props.setAddNewMedicine} placeholder={"Choose the medicine..."} list={props.medicines} name={"medicineId"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Input placeholder={""} label={"Description"} type={"text"} name={"description"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
-            <Input placeholder={""} label={"Note"} type={"text"} name={"note"} onChange={handleSave} state={diagnosis} setState={setDiagnosis} errors={diagnosisErrors} setErrors={setDiagnosisErrors} schema={diagnosisSchema} />
+            <Input
+              placeholder={""}
+              label={"Blood Pressure"}
+              type={"text"}
+              name={"blood_pressure"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Sugar Level"}
+              type={"number"}
+              name={"sugar"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Heart Rate"}
+              type={"number"}
+              name={"heart_beat"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Cholesterol"}
+              type={"number"}
+              name={"cholesterol"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Select
+              label={"Disease"}
+              addNew={props.setAddNewDisease}
+              placeholder={"Choose the disease..."}
+              list={props.diseases}
+              name={"diseaseTypeId"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Select
+              label={"Medicine"}
+              addNew={props.setAddNewMedicine}
+              placeholder={"Choose the medicine..."}
+              list={props.medicines}
+              name={"medicineId"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Description"}
+              type={"text"}
+              name={"description"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
+            <Input
+              placeholder={""}
+              label={"Note"}
+              type={"text"}
+              name={"note"}
+              onChange={handleSave}
+              state={diagnosis}
+              setState={setDiagnosis}
+              errors={diagnosisErrors}
+              setErrors={setDiagnosisErrors}
+              schema={diagnosisSchema}
+            />
             <div className="column" style={{ position: "relative" }}>
               <h3>Diagnosis Pictures</h3>
               <input
@@ -138,7 +266,15 @@ function AddDiagnosisForm(props) {
             </div>
           </div>
         </form>
-        <Button action={addDiagnosis} text={"Add"} disabled={duringAdd} joiObject={joiDiagnosis} state={diagnosis} setStateErrors={setDiagnosisErrors} toast={props.toast} />
+        <Button
+          action={addDiagnosis}
+          text={"Add"}
+          disabled={duringAdd}
+          joiObject={joiDiagnosis}
+          state={diagnosis}
+          setStateErrors={setDiagnosisErrors}
+          toast={props.toast}
+        />
       </>
     );
   } catch (err) {

@@ -20,12 +20,29 @@ function Diagnosis(props) {
   }
   async function getProfile() {
     try {
-      const response = await fetch("http://localhost:3001/doctor/profile", { ...requestOptions, headers: { ...requestOptions.headers, authorization: props.userInformation.token }, method: "GET" });
+      const response = await fetch(
+        `${import.meta.env.VITE_URL}/doctor/profile`,
+        {
+          ...requestOptions,
+          headers: {
+            ...requestOptions.headers,
+            authorization: props.userInformation.token,
+          },
+          method: "GET",
+        }
+      );
       const data = await response.json();
       if (data.success) {
         let schedule = await getSchedule(data.data.schedule);
 
-        props.setProfile({ ...data.data, name: data.data["user.name"], username: data.data["user.username"], gender: data.data["user.gender"], id: data.data["user.id"], schedule: schedule });
+        props.setProfile({
+          ...data.data,
+          name: data.data["user.name"],
+          username: data.data["user.username"],
+          gender: data.data["user.gender"],
+          id: data.data["user.id"],
+          schedule: schedule,
+        });
       } else {
         console.log(data.error);
         props.toast.error("Sorry, Error Happened in The Server", {
@@ -47,7 +64,17 @@ function Diagnosis(props) {
     }
   }, []);
   async function getDiseases() {
-    const response = await fetch("http://localhost:3001/diseaseType/all", { ...requestOptions, headers: { ...requestOptions.headers, authorization: props.userInformation.token }, method: "GET" });
+    const response = await fetch(
+      `${import.meta.env.VITE_URL}/diseaseType/all`,
+      {
+        ...requestOptions,
+        headers: {
+          ...requestOptions.headers,
+          authorization: props.userInformation.token,
+        },
+        method: "GET",
+      }
+    );
     const data = await response.json();
     if (data.success) {
       let finalDiseases = {};
@@ -71,7 +98,14 @@ function Diagnosis(props) {
     }
   }, []);
   async function getMedicines() {
-    const response = await fetch("http://localhost:3001/medicine/all", { ...requestOptions, headers: { ...requestOptions.headers, authorization: props.userInformation.token }, method: "GET" });
+    const response = await fetch(`${import.meta.env.VITE_URL}/medicine/all`, {
+      ...requestOptions,
+      headers: {
+        ...requestOptions.headers,
+        authorization: props.userInformation.token,
+      },
+      method: "GET",
+    });
     const data = await response.json();
     if (data.success) {
       let finalMedicines = {};
@@ -103,7 +137,11 @@ function Diagnosis(props) {
 
   const [userInfoErrors, setUserInfoErrors] = useState({});
   const userInfoSchema = {
-    accessKey: Joi.string().required().trim().messages(messages).label("Access Key"),
+    accessKey: Joi.string()
+      .required()
+      .trim()
+      .messages(messages)
+      .label("Access Key"),
   };
   const joiUserInfo = Joi.object(userInfoSchema);
 
@@ -114,13 +152,19 @@ function Diagnosis(props) {
       const newData = userInfo;
       const infoRequestOptions = {
         ...requestOptions,
-        headers: { ...requestOptions.headers, authorization: props.userInformation.token },
+        headers: {
+          ...requestOptions.headers,
+          authorization: props.userInformation.token,
+        },
         body: JSON.stringify({
           ...userInfo,
         }),
       };
       setDuringAdd(true);
-      const response = await fetch("http://localhost:3001/doctor/info-patient", infoRequestOptions);
+      const response = await fetch(
+        `${import.meta.env.VITE_URL}/doctor/info-patient`,
+        infoRequestOptions
+      );
       const data = await response.json();
       if (data.success) {
         setPatientInfo({ ...data.data });
@@ -143,16 +187,58 @@ function Diagnosis(props) {
     return (
       <>
         <div className="error-page">
-          <div className="form-container" style={{ height: "175px", top: "0", left: "0", margin: "auto", marginTop: "10px", transform: "none", position: "relative" }}>
+          <div
+            className="form-container"
+            style={{
+              height: "175px",
+              top: "0",
+              left: "0",
+              margin: "auto",
+              marginTop: "10px",
+              transform: "none",
+              position: "relative",
+            }}
+          >
             <form style={{ height: "100px" }}>
               <div className="row">
-                <Input placeholder={"Enter the patient access key"} label={"Access Key"} type={"text"} name={"accessKey"} onChange={handleSave} state={userInfo} setState={setUserInfo} errors={userInfoErrors} setErrors={setUserInfoErrors} schema={userInfoSchema} />
+                <Input
+                  placeholder={"Enter the patient access key"}
+                  label={"Access Key"}
+                  type={"text"}
+                  name={"accessKey"}
+                  onChange={handleSave}
+                  state={userInfo}
+                  setState={setUserInfo}
+                  errors={userInfoErrors}
+                  setErrors={setUserInfoErrors}
+                  schema={userInfoSchema}
+                />
               </div>
             </form>
             <img src="" alt="" />
-            <Button action={getUserInfo} text={"Request For Information"} disabled={duringAdd} joiObject={joiUserInfo} state={userInfo} setStateErrors={setUserInfoErrors} toast={props.toast} />
+            <Button
+              action={getUserInfo}
+              text={"Request For Information"}
+              disabled={duringAdd}
+              joiObject={joiUserInfo}
+              state={userInfo}
+              setStateErrors={setUserInfoErrors}
+              toast={props.toast}
+            />
           </div>
-          {Object.keys(patientInfo).length ? <PatientInfo setPatientInfo={setPatientInfo} patientInfo={patientInfo} diseases={props.diseases} setDiseases={props.setDiseases} medicines={props.medicines} setMedicines={props.setMedicines} profile={props.profile} userInformation={props.userInformation} toast={props.toast} /> : null}
+          {Object.keys(patientInfo).length ? (
+            <PatientInfo
+              setPatientInfo={setPatientInfo}
+              patientInfo={patientInfo}
+              diseases={props.diseases}
+              setDiseases={props.setDiseases}
+              medicines={props.medicines}
+              setMedicines={props.setMedicines}
+              profile={props.profile}
+              userInformation={props.userInformation}
+              toast={props.toast}
+            />
+          ) : null}
         </div>
       </>
     );

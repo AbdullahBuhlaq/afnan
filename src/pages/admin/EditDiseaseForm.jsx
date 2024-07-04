@@ -20,7 +20,11 @@ function EditDiseaseForm(props) {
 
   const [diseaseErrors, setDiseaseErrors] = useState({});
   const diseaseSchema = {
-    name: Joi.string().required().trim().messages(messages).label("Disease Name"),
+    name: Joi.string()
+      .required()
+      .trim()
+      .messages(messages)
+      .label("Disease Name"),
   };
   const joiDisease = Joi.object(diseaseSchema);
 
@@ -30,18 +34,27 @@ function EditDiseaseForm(props) {
       const id = props.currentEdit.id;
       const infoRequestOptions = {
         ...requestOptions,
-        headers: { ...requestOptions.headers, authorization: props.userInformation.token },
+        headers: {
+          ...requestOptions.headers,
+          authorization: props.userInformation.token,
+        },
         method: "PUT",
         body: JSON.stringify({
           ...disease,
         }),
       };
       setDuringAdd(true);
-      const response = await fetch(`http://localhost:3001/diseaseType/update/${id}`, infoRequestOptions);
+      const response = await fetch(
+        `${import.meta.env.VITE_URL}/diseaseType/update/${id}`,
+        infoRequestOptions
+      );
       const data = await response.json();
       //   const data = { success: true };
       if (data.success) {
-        props.setDiseases({ ...props.diseases, [id]: { ...props.currentEdit, ...newData } });
+        props.setDiseases({
+          ...props.diseases,
+          [id]: { ...props.currentEdit, ...newData },
+        });
         props.setCurrentEdit(false);
         props.toast.success("Disease Type Updated", {
           position: props.toast.POSITION.TOP_CENTER,
@@ -63,10 +76,29 @@ function EditDiseaseForm(props) {
       <>
         <form>
           <div className="row">
-            <Input placeholder={""} label={"Name"} type={"text"} name={"name"} onChange={handleSave} state={disease} setState={setDisease} errors={diseaseErrors} setErrors={setDiseaseErrors} schema={diseaseSchema} />
+            <Input
+              placeholder={""}
+              label={"Name"}
+              type={"text"}
+              name={"name"}
+              onChange={handleSave}
+              state={disease}
+              setState={setDisease}
+              errors={diseaseErrors}
+              setErrors={setDiseaseErrors}
+              schema={diseaseSchema}
+            />
           </div>
         </form>
-        <Button action={editDisease} text={"Save"} disabled={duringAdd} joiObject={joiDisease} state={disease} setStateErrors={setDiseaseErrors} toast={props.toast} />
+        <Button
+          action={editDisease}
+          text={"Save"}
+          disabled={duringAdd}
+          joiObject={joiDisease}
+          state={disease}
+          setStateErrors={setDiseaseErrors}
+          toast={props.toast}
+        />
       </>
     );
   } catch (err) {

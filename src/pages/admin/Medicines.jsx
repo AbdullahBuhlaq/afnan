@@ -16,7 +16,14 @@ function Medicines(props) {
   }, []);
   const [search, setSearch] = useState({ field: "", word: "", operator: "" });
   async function getMedicines() {
-    const response = await fetch("http://localhost:3001/medicine/all", { ...requestOptions, headers: { ...requestOptions.headers, authorization: props.userInformation.token }, method: "GET" });
+    const response = await fetch(`${import.meta.env.VITE_URL}/medicine/all`, {
+      ...requestOptions,
+      headers: {
+        ...requestOptions.headers,
+        authorization: props.userInformation.token,
+      },
+      method: "GET",
+    });
     const data = await response.json();
     if (data.success) {
       let finalMedicines = {};
@@ -48,18 +55,34 @@ function Medicines(props) {
       const populateArray = async () => {
         try {
           const newArr = await Promise.all(
-            Object.keys(props.medicines).map(async (medicineKey, medicineIndex) => {
-              let medicineObject = {
-                name: props.medicines[medicineKey].name,
-                id: props.medicines[medicineKey].id,
-              };
-              const isTrue = await compare(searchOptions["medicines"][search.field], search.operator, medicineObject[search.field], search.word);
-              if (isTrue) {
-                index += 1;
-                let curIndex = index;
-                return <MedicineCard key={medicineIndex} index={curIndex} firstRender={firstRender} medicine={medicineObject} setCurrentEdit={setCurrentEdit} deleteMedicine={deleteMedicine} />;
+            Object.keys(props.medicines).map(
+              async (medicineKey, medicineIndex) => {
+                let medicineObject = {
+                  name: props.medicines[medicineKey].name,
+                  id: props.medicines[medicineKey].id,
+                };
+                const isTrue = await compare(
+                  searchOptions["medicines"][search.field],
+                  search.operator,
+                  medicineObject[search.field],
+                  search.word
+                );
+                if (isTrue) {
+                  index += 1;
+                  let curIndex = index;
+                  return (
+                    <MedicineCard
+                      key={medicineIndex}
+                      index={curIndex}
+                      firstRender={firstRender}
+                      medicine={medicineObject}
+                      setCurrentEdit={setCurrentEdit}
+                      deleteMedicine={deleteMedicine}
+                    />
+                  );
+                }
               }
-            })
+            )
           );
           setItems([...newArr]);
           if (newArr.length) setFirstRender(false);
@@ -74,7 +97,17 @@ function Medicines(props) {
   }, [props.medicines, search]);
 
   async function deleteMedicine(id) {
-    const response = await fetch(`http://localhost:3001/medicine/delete/${id}`, { ...requestOptions, method: "delete", headers: { ...requestOptions.headers, authorization: props.userInformation.token } });
+    const response = await fetch(
+      `${import.meta.env.VITE_URL}/medicine/delete/${id}`,
+      {
+        ...requestOptions,
+        method: "delete",
+        headers: {
+          ...requestOptions.headers,
+          authorization: props.userInformation.token,
+        },
+      }
+    );
     const data = await response.json();
     // const data = { success: true };
     if (data.success) {
@@ -103,14 +136,38 @@ function Medicines(props) {
         ) : (
           <>
             <div className="error-page">
-              <div className="doctors" style={{ height: "100%", flex: "1 1", maxHeight: "100%", display: "flex", flexDirection: "column", padding: "16px 10%" }}>
-                <Search page={"medicines"} search={search} setSearch={setSearch} />
+              <div
+                className="doctors"
+                style={{
+                  height: "100%",
+                  flex: "1 1",
+                  maxHeight: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "16px 10%",
+                }}
+              >
+                <Search
+                  page={"medicines"}
+                  search={search}
+                  setSearch={setSearch}
+                />
                 <br />
                 <h1 className="app-content-headerText">Medicines</h1>
 
                 <div className="test-container">
-                  <div className="test-card" style={{ cursor: "pointer", textAlign: "center" }} onClick={() => setAddNew(true)}>
-                    <div style={{ margin: "auto", height: "24px", fontSize: "35px" }}>
+                  <div
+                    className="test-card"
+                    style={{ cursor: "pointer", textAlign: "center" }}
+                    onClick={() => setAddNew(true)}
+                  >
+                    <div
+                      style={{
+                        margin: "auto",
+                        height: "24px",
+                        fontSize: "35px",
+                      }}
+                    >
                       <BsPlusCircle />
                     </div>
                     <h3>{"Add Medicine "}</h3>
@@ -122,7 +179,9 @@ function Medicines(props) {
               </div>
             </div>
 
-            <div className={"popup-box" + (addNew || currentEdit ? " show" : "")}>
+            <div
+              className={"popup-box" + (addNew || currentEdit ? " show" : "")}
+            >
               <div className="form-container">
                 <span className="close">
                   <HiOutlineXMark
@@ -133,10 +192,33 @@ function Medicines(props) {
                   />
                 </span>
 
-                <h1>{addNew ? "Add Medicine" : currentEdit ? "Edit Medicine " + currentEdit.name : ""}</h1>
+                <h1>
+                  {addNew
+                    ? "Add Medicine"
+                    : currentEdit
+                    ? "Edit Medicine " + currentEdit.name
+                    : ""}
+                </h1>
 
-                {addNew ? <AddMedicineForm medicines={props.medicines} setMedicines={props.setMedicines} setAddNew={setAddNew} userInformation={props.userInformation} toast={props.toast} /> : null}
-                {currentEdit ? <EditMedicineForm medicines={props.medicines} setMedicines={props.setMedicines} currentEdit={currentEdit} setCurrentEdit={setCurrentEdit} userInformation={props.userInformation} toast={props.toast} /> : null}
+                {addNew ? (
+                  <AddMedicineForm
+                    medicines={props.medicines}
+                    setMedicines={props.setMedicines}
+                    setAddNew={setAddNew}
+                    userInformation={props.userInformation}
+                    toast={props.toast}
+                  />
+                ) : null}
+                {currentEdit ? (
+                  <EditMedicineForm
+                    medicines={props.medicines}
+                    setMedicines={props.setMedicines}
+                    currentEdit={currentEdit}
+                    setCurrentEdit={setCurrentEdit}
+                    userInformation={props.userInformation}
+                    toast={props.toast}
+                  />
+                ) : null}
               </div>
             </div>
           </>

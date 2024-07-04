@@ -17,7 +17,14 @@ function Doctors(props) {
   }, []);
   const [search, setSearch] = useState({ field: "", word: "", operator: "" });
   async function getDoctors() {
-    const response = await fetch("http://localhost:3001/doctor/all", { ...requestOptions, headers: { ...requestOptions.headers, authorization: props.userInformation.token }, method: "GET" });
+    const response = await fetch(`${import.meta.env.VITE_URL}/doctor/all`, {
+      ...requestOptions,
+      headers: {
+        ...requestOptions.headers,
+        authorization: props.userInformation.token,
+      },
+      method: "GET",
+    });
     const data = await response.json();
     if (data.success) {
       props.setDoctors([...data.data]);
@@ -59,11 +66,25 @@ function Doctors(props) {
                 medicalSpecialty: doctor.medicalSpecialty,
               };
               let schedule = await getSchedule(doctor.schedule);
-              const isTrue = await compare(searchOptions["doctors"][search.field], search.operator, doctorObject[search.field], search.word);
+              const isTrue = await compare(
+                searchOptions["doctors"][search.field],
+                search.operator,
+                doctorObject[search.field],
+                search.word
+              );
               if (isTrue) {
                 index += 1;
                 let curIndex = index;
-                return <DoctorCard key={doctorIndex} setCurrentSchedule={setCurrentSchedule} firstRender={firstRender} doctor={doctorObject} image={doctor.image} schedule={schedule} />;
+                return (
+                  <DoctorCard
+                    key={doctorIndex}
+                    setCurrentSchedule={setCurrentSchedule}
+                    firstRender={firstRender}
+                    doctor={doctorObject}
+                    image={doctor.image}
+                    schedule={schedule}
+                  />
+                );
               }
             })
           );
@@ -87,12 +108,34 @@ function Doctors(props) {
         ) : (
           <>
             <div className="error-page">
-              <div className="doctors" style={{ height: "100%", flex: "1 1", maxHeight: "100%", display: "flex", flexDirection: "column", padding: "16px 10%" }}>
-                <Search page={"doctors"} search={search} setSearch={setSearch} />
+              <div
+                className="doctors"
+                style={{
+                  height: "100%",
+                  flex: "1 1",
+                  maxHeight: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "16px 10%",
+                }}
+              >
+                <Search
+                  page={"doctors"}
+                  search={search}
+                  setSearch={setSearch}
+                />
                 <br />
                 <h1 className="app-content-headerText">Doctors</h1>
 
-                <div className="products-area-wrapper tableView" style={{ background: "white", padding: "10px", borderRadius: "15px", boxShadow: "0 4px 13px #ccc" }}>
+                <div
+                  className="products-area-wrapper tableView"
+                  style={{
+                    background: "white",
+                    padding: "10px",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 13px #ccc",
+                  }}
+                >
                   <TableHeader tabs={doctorTabs} />
                   {items.map((item) => {
                     return item;
@@ -100,7 +143,9 @@ function Doctors(props) {
                 </div>
               </div>
 
-              {currentSchedule != false ? <CalendarInPatient schedule={currentSchedule} /> : null}
+              {currentSchedule != false ? (
+                <CalendarInPatient schedule={currentSchedule} />
+              ) : null}
             </div>
           </>
         )}
