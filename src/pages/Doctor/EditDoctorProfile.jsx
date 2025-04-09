@@ -75,7 +75,7 @@ function EditDoctorProfile(props) {
 
   async function editProfile() {
     const newData = doctor;
-    const url = `${import.meta.env.VITE_URL}/doctor/update`;
+    const url = `${process.env.REACT_APP_URL}/doctor/update`;
 
     setDuringAdd(true);
     let formData = new FormData();

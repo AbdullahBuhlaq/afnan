@@ -16,7 +16,7 @@ function Medicines(props) {
   }, []);
   const [search, setSearch] = useState({ field: "", word: "", operator: "" });
   async function getMedicines() {
-    const response = await fetch(`${import.meta.env.VITE_URL}/medicine/all`, {
+    const response = await fetch(`${process.env.REACT_APP_URL}/medicine/all`, {
       ...requestOptions,
       headers: {
         ...requestOptions.headers,
@@ -98,7 +98,7 @@ function Medicines(props) {
 
   async function deleteMedicine(id) {
     const response = await fetch(
-      `${import.meta.env.VITE_URL}/medicine/delete/${id}`,
+      `${process.env.REACT_APP_URL}/medicine/delete/${id}`,
       {
         ...requestOptions,
         method: "delete",

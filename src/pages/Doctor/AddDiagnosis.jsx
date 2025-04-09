@@ -93,7 +93,7 @@ function AddDiagnosisForm(props) {
       setDuringAdd(true);
 
       const newData = diagnosis;
-      const url = `${import.meta.env.VITE_URL}/doctor/add-diagnosis`;
+      const url = `${process.env.REACT_APP_URL}/doctor/add-diagnosis`;
 
       setDuringAdd(true);
       let formData = new FormData();

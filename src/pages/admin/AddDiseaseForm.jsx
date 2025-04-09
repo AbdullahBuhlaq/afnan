@@ -38,7 +38,7 @@ function AddDiseaseForm(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/diseaseType/create`,
+        `${process.env.REACT_APP_URL}/diseaseType/create`,
         infoRequestOptions
       );
       const data = await response.json();

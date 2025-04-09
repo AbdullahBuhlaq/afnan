@@ -75,7 +75,7 @@ function DoctorRegisterForm(props) {
     };
     setDuringAdd(true);
     const response = await fetch(
-      `${import.meta.env.VITE_URL}/auth/signup-doctor`,
+      `${process.env.REACT_APP_URL}/auth/signup-doctor`,
       infoRequestOptions
     );
     const data = await response.json();

@@ -1,30 +1,35 @@
 function Loading() {
   try {
-    return <>
-    <div className="dash">
-        <div className="error-page">
-          <section class="sub-banner" data-stellar-background-ratio="0.5">
-            <div class="overlay">
-              <div class="container">
-                <h3>Loading ...</h3>
-                <p>Provide useful information on health and wellness</p>
-              </div>
-            </div>
-          </section>
-
-          <section class="error-page">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-12 text-center">
-                  {" "}
-                  <span class="not-found font-montserrat">Please Wait A Moment ...</span>
+    return (
+      <>
+        <div className="dash">
+          <div className="error-page">
+            <section className="sub-banner" data-stellar-background-ratio="0.5">
+              <div className="overlay">
+                <div className="container">
+                  <h3>Loading ...</h3>
+                  <p>Provide useful information on health and wellness</p>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+
+            <section className="error-page">
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-12 text-center">
+                    {" "}
+                    <span className="not-found font-montserrat">
+                      Please Wait A Moment ...
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          ;
         </div>
-        ;
-      </div></>;
+      </>
+    );
   } catch (err) {
     console.log(err);
   }

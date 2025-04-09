@@ -93,7 +93,7 @@ function PatientRegisterForm(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/auth/signup-patient`,
+        `${process.env.REACT_APP_URL}/auth/signup-patient`,
         infoRequestOptions
       );
       const data = await response.json();

@@ -5,7 +5,7 @@ import Tab from "./Tab";
 function Navbar(props) {
   async function logout() {
     try {
-      let response = await fetch(`${import.meta.env.VITE_URL}/auth/logout`, {
+      let response = await fetch(`${process.env.REACT_APP_URL}/auth/logout`, {
         ...requestOptions,
         method: "put",
         headers: {

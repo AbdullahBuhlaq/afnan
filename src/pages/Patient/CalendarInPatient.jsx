@@ -99,7 +99,7 @@ const CalendarInPatient = (props) => {
 
     setDuringAdd(true);
     const response = await fetch(
-      `${import.meta.env.VITE_URL}/doctor/update`,
+      `${process.env.REACT_APP_URL}/doctor/update`,
       infoRequestOptions
     );
 

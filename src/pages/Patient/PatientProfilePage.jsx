@@ -29,7 +29,7 @@ function PatientProfile(props) {
   async function getProfile() {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/patient/profile`,
+        `${process.env.REACT_APP_URL}/patient/profile`,
         {
           ...requestOptions,
           headers: {

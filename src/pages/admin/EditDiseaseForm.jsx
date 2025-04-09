@@ -45,7 +45,7 @@ function EditDiseaseForm(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/diseaseType/update/${id}`,
+        `${process.env.REACT_APP_URL}/diseaseType/update/${id}`,
         infoRequestOptions
       );
       const data = await response.json();

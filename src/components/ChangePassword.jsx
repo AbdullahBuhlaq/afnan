@@ -50,7 +50,7 @@ function ChangePassword(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/account/ch-pass`,
+        `${process.env.REACT_APP_URL}/account/ch-pass`,
         infoRequestOptions
       );
       const data = await response.json();

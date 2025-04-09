@@ -17,7 +17,7 @@ function Doctors(props) {
   }, []);
   const [search, setSearch] = useState({ field: "", word: "", operator: "" });
   async function getDoctors() {
-    const response = await fetch(`${import.meta.env.VITE_URL}/doctor/all`, {
+    const response = await fetch(`${process.env.REACT_APP_URL}/doctor/all`, {
       ...requestOptions,
       headers: {
         ...requestOptions.headers,

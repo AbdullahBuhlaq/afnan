@@ -104,7 +104,7 @@ function EditPatientProfile(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/patient/update`,
+        `${process.env.REACT_APP_URL}/patient/update`,
         infoRequestOptions
       );
       const data = await response.json();

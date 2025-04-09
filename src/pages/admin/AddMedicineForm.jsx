@@ -38,7 +38,7 @@ function AddMedicineForm(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/medicine/create`,
+        `${process.env.REACT_APP_URL}/medicine/create`,
         infoRequestOptions
       );
       const data = await response.json();

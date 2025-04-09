@@ -49,8 +49,9 @@ function Login(props) {
         }),
       };
       setDuringAdd(true);
+      console.log(process.env.REACT_APP_URL);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/auth/login`,
+        `${process.env.REACT_APP_URL}/auth/login`,
         infoRequestOptions
       );
       const data = await response.json();

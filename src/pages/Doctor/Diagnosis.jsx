@@ -21,7 +21,7 @@ function Diagnosis(props) {
   async function getProfile() {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/doctor/profile`,
+        `${process.env.REACT_APP_URL}/doctor/profile`,
         {
           ...requestOptions,
           headers: {
@@ -65,7 +65,7 @@ function Diagnosis(props) {
   }, []);
   async function getDiseases() {
     const response = await fetch(
-      `${import.meta.env.VITE_URL}/diseaseType/all`,
+      `${process.env.REACT_APP_URL}/diseaseType/all`,
       {
         ...requestOptions,
         headers: {
@@ -98,7 +98,7 @@ function Diagnosis(props) {
     }
   }, []);
   async function getMedicines() {
-    const response = await fetch(`${import.meta.env.VITE_URL}/medicine/all`, {
+    const response = await fetch(`${process.env.REACT_APP_URL}/medicine/all`, {
       ...requestOptions,
       headers: {
         ...requestOptions.headers,
@@ -162,7 +162,7 @@ function Diagnosis(props) {
       };
       setDuringAdd(true);
       const response = await fetch(
-        `${import.meta.env.VITE_URL}/doctor/info-patient`,
+        `${process.env.REACT_APP_URL}/doctor/info-patient`,
         infoRequestOptions
       );
       const data = await response.json();
